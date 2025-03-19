@@ -188,8 +188,8 @@ const Dashboard = ({ children, activePage }) => {
 
       {/* Main Content */}
       <div className={`main-content ${sidebarOpen ? "" : "expanded"}`}>
-        {/* Contenido específico del Dashboard */}
-        {activePage === "Dashboard" && (
+        {/* Mostrar CardsMain y ChatGlobal solo si no hay children */}
+        {!children && (
           <>
             <h1 className="page-title">Dashboard</h1>
             <CardsMain />
@@ -199,7 +199,7 @@ const Dashboard = ({ children, activePage }) => {
           </>
         )}
 
-        {/* Contenido de otras páginas */}
+        {/* Mostrar children si está presente */}
         {children}
       </div>
 
