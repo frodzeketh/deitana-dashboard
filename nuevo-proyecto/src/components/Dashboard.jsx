@@ -1,6 +1,5 @@
-"use client"
-
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Menu,
   Home,
@@ -20,36 +19,36 @@ import {
   Bell,
   Users,
   Bot,
-} from "lucide-react"
-import Seedling from "./icons/Seedling"
-import ChatGlobal from "./ChatGlobal"
-import CardsMain from "./CardsMain"
-import "../global.css"
+} from "lucide-react";
+import Seedling from "./icons/Seedling";
+import CardsMain from "./CardsMain"; // Importa CardsMain
+import ChatGlobal from "./ChatGlobal"; // Importa ChatGlobal
+import "../global.css";
 
-const Dashboard = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true)
-  const [isMobile, setIsMobile] = useState(false)
+const Dashboard = ({ children, activePage }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Detectar si es dispositivo móvil
   useEffect(() => {
     const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
+      setIsMobile(window.innerWidth <= 768);
       if (window.innerWidth <= 768) {
-        setSidebarOpen(false)
+        setSidebarOpen(false);
       }
-    }
+    };
 
-    checkIfMobile()
-    window.addEventListener("resize", checkIfMobile)
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
 
     return () => {
-      window.removeEventListener("resize", checkIfMobile)
-    }
-  }, [])
+      window.removeEventListener("resize", checkIfMobile);
+    };
+  }, []);
 
   const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen)
-  }
+    setSidebarOpen(!sidebarOpen);
+  };
 
   return (
     <div className="dashboard-container">
@@ -73,104 +72,141 @@ const Dashboard = () => {
         <div className="sidebar-section">
           <div className="section-title">{sidebarOpen && "PERSONAL"}</div>
           <ul className="nav-links">
-            <li className="nav-link active">
-              <Home size={20} />
-              {sidebarOpen && <span>Dashboard</span>}
-              {sidebarOpen && <div className="badge">4</div>}
-            </li>
-            <li className="nav-link">
-              <Bot size={20} />
-              {sidebarOpen && <span>Chat IA</span>}
-              {sidebarOpen && <ChevronRight size={16} />}
-            </li>
+            <Link to="/dashboard">
+              <li className={`nav-link ${activePage === "Dashboard" ? "active" : ""}`}>
+                <Home size={20} />
+                {sidebarOpen && <span>Dashboard</span>}
+                {sidebarOpen && <div className="badge">4</div>}
+              </li>
+            </Link>
+            <Link to="/chat-ia">
+              <li className={`nav-link ${activePage === "ChatIA" ? "active" : ""}`}>
+                <Bot size={20} />
+                {sidebarOpen && <span>Chat IA</span>}
+                {sidebarOpen && <ChevronRight size={16} />}
+              </li>
+            </Link>
           </ul>
         </div>
 
         <div className="sidebar-section">
           <div className="section-title">{sidebarOpen && "APPS"}</div>
           <ul className="nav-links">
-            <li className="nav-link">
-              <FileInvoice size={20} />
-              {sidebarOpen && <span>Facturación</span>}
-            </li>
-            <li className="nav-link">
-              <FileText2 size={20} />
-              {sidebarOpen && <span>Registro de facturas emitidas</span>}
-            </li>
-            <li className="nav-link">
-              <AlertCircle size={20} />
-              {sidebarOpen && <span>Control de incidencias</span>}
-            </li>
-            <li className="nav-link">
-              <Users size={20} />
-              {sidebarOpen && <span>Clientes</span>}
-            </li>
-            <li className="nav-link">
-              <Truck size={20} />
-              {sidebarOpen && <span>Orden de recogida</span>}
-            </li>
-            <li className="nav-link">
-              <Seedling size={20} />
-              {sidebarOpen && <span>Encargos de siembra</span>}
-            </li>
-            <li className="nav-link">
-              <Package size={20} />
-              {sidebarOpen && <span>Partidas</span>}
-            </li>
-            <li className="nav-link">
-              <ClipboardList size={20} />
-              {sidebarOpen && <span>Resumen partidas</span>}
-            </li>
-            <li className="nav-link">
-              <UserCheck size={20} />
-              {sidebarOpen && <span>Partidas cliente</span>}
-            </li>
-            <li className="nav-link">
-              <Store size={20} />
-              {sidebarOpen && <span>Almacenes de venta</span>}
-            </li>
-            <li className="nav-link">
-              <History size={20} />
-              {sidebarOpen && <span>Historial de sucesos</span>}
-            </li>
-            <li className="nav-link">
-              <Phone size={20} />
-              {sidebarOpen && <span>Telefonos</span>}
-            </li>
-            <li className="nav-link">
-              <ShoppingBag size={20} />
-              {sidebarOpen && <span>Artículos</span>}
-            </li>
-            <li className="nav-link">
-              <Bell size={20} />
-              {sidebarOpen && <span>Orden avisos</span>}
-            </li>
-            <li className="nav-link">
-              <MessageCircle size={20} />
-              {sidebarOpen && <span>Mensajería interna</span>}
-            </li>
+            <Link to="/facturacion">
+              <li className={`nav-link ${activePage === "Facturacion" ? "active" : ""}`}>
+                <FileInvoice size={20} />
+                {sidebarOpen && <span>Facturación</span>}
+              </li>
+            </Link>
+            <Link to="/registro-de-facturas-emitidas">
+              <li className={`nav-link ${activePage === "RegistroDeFacturasEmitidas" ? "active" : ""}`}>
+                <FileText2 size={20} />
+                {sidebarOpen && <span>Registro de facturas emitidas</span>}
+              </li>
+            </Link>
+            <Link to="/control-de-incidencias">
+              <li className={`nav-link ${activePage === "ControlDeIncidencias" ? "active" : ""}`}>
+                <AlertCircle size={20} />
+                {sidebarOpen && <span>Control de incidencias</span>}
+              </li>
+            </Link>
+            <Link to="/clientes">
+              <li className={`nav-link ${activePage === "Clientes" ? "active" : ""}`}>
+                <Users size={20} />
+                {sidebarOpen && <span>Clientes</span>}
+              </li>
+            </Link>
+            <Link to="/orden-de-recogida">
+              <li className={`nav-link ${activePage === "OrdenDeRecogida" ? "active" : ""}`}>
+                <Truck size={20} />
+                {sidebarOpen && <span>Orden de recogida</span>}
+              </li>
+            </Link>
+            <Link to="/encargos-de-siembra">
+              <li className={`nav-link ${activePage === "EncargosDeSiembra" ? "active" : ""}`}>
+                <Seedling size={20} />
+                {sidebarOpen && <span>Encargos de siembra</span>}
+              </li>
+            </Link>
+            <Link to="/partidas">
+              <li className={`nav-link ${activePage === "Partidas" ? "active" : ""}`}>
+                <Package size={20} />
+                {sidebarOpen && <span>Partidas</span>}
+              </li>
+            </Link>
+            <Link to="/resumen-partidas">
+              <li className={`nav-link ${activePage === "ResumenPartidas" ? "active" : ""}`}>
+                <ClipboardList size={20} />
+                {sidebarOpen && <span>Resumen partidas</span>}
+              </li>
+            </Link>
+            <Link to="/partidas-cliente">
+              <li className={`nav-link ${activePage === "PartidasCliente" ? "active" : ""}`}>
+                <UserCheck size={20} />
+                {sidebarOpen && <span>Partidas cliente</span>}
+              </li>
+            </Link>
+            <Link to="/almacenes-de-venta">
+              <li className={`nav-link ${activePage === "AlmacenesDeVenta" ? "active" : ""}`}>
+                <Store size={20} />
+                {sidebarOpen && <span>Almacenes de venta</span>}
+              </li>
+            </Link>
+            <Link to="/historial-de-sucesos">
+              <li className={`nav-link ${activePage === "HistorialDeSucesos" ? "active" : ""}`}>
+                <History size={20} />
+                {sidebarOpen && <span>Historial de sucesos</span>}
+              </li>
+            </Link>
+            <Link to="/telefonos">
+              <li className={`nav-link ${activePage === "Telefonos" ? "active" : ""}`}>
+                <Phone size={20} />
+                {sidebarOpen && <span>Telefonos</span>}
+              </li>
+            </Link>
+            <Link to="/articulos">
+              <li className={`nav-link ${activePage === "Articulos" ? "active" : ""}`}>
+                <ShoppingBag size={20} />
+                {sidebarOpen && <span>Artículos</span>}
+              </li>
+            </Link>
+            <Link to="/orden-avisos">
+              <li className={`nav-link ${activePage === "OrdenAvisos" ? "active" : ""}`}>
+                <Bell size={20} />
+                {sidebarOpen && <span>Orden avisos</span>}
+              </li>
+            </Link>
+            <Link to="/mensajeria-interna">
+              <li className={`nav-link ${activePage === "MensajeriaInterna" ? "active" : ""}`}>
+                <MessageCircle size={20} />
+                {sidebarOpen && <span>Mensajería interna</span>}
+              </li>
+            </Link>
           </ul>
         </div>
       </div>
 
       {/* Main Content */}
       <div className={`main-content ${sidebarOpen ? "" : "expanded"}`}>
-        <h1 className="page-title">Dashboard</h1>
+        {/* Contenido específico del Dashboard */}
+        {activePage === "Dashboard" && (
+          <>
+            <h1 className="page-title">Dashboard</h1>
+            <CardsMain />
+            <div className="chat-wrapper">
+              <ChatGlobal />
+            </div>
+          </>
+        )}
 
-        {/* Componente de tarjetas de estadísticas */}
-        <CardsMain />
-
-        {/* Chat Global */}
-        <div className="chat-wrapper">
-          <ChatGlobal />
-        </div>
+        {/* Contenido de otras páginas */}
+        {children}
       </div>
 
       {/* Overlay para dispositivos móviles */}
       {isMobile && sidebarOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
-
+export default Dashboard;

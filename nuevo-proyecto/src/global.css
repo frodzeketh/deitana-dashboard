@@ -270,6 +270,11 @@ body {
   z-index: 5;
 }
 
+/* Agrega esto en tu archivo CSS global o en el archivo de estilos del componente */
+.sidebar .nav-links a {
+  text-decoration: none; /* Elimina el subrayado */
+}
+
 /* Aumentar tamaño de iconos cuando el menú está cerrado */
 .sidebar.closed .nav-link svg {
   width: 24px;
@@ -326,6 +331,14 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+
+
+
+
+
+
+
 
 
 
